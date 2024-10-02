@@ -10,6 +10,12 @@ if (!DEBUG) error("cannot use not in debug session");
 
 tokenAccountReg($gas_domain, $gas_address, $gas_password);
 
-echo json_encode(["success" => true]);
+
+$response = [
+    "message" => "send gas tokens to `telegram` gas account",
+    success => true,
+];
+
+echo json_encode($response);
 
 

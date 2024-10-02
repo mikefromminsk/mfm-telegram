@@ -17,8 +17,25 @@ function telegramSend($bot, $username, $text)
     ]);
 }
 
+$db_name = get_required("db_name");
+$db_user = get_required("db_user");
+$db_pass = get_required("db_pass");
 
-function telegramConnectAccountAndUser($address, $username, $domain)
-{
+$mysql_conn = $GLOBALS["conn"];
+if ($mysql_conn == null)
+    $mysql_conn = new mysqli("localhost", $db_user, $db_pass, $db_name); // change localhost to $host_name
 
+if ($mysql_conn->connect_error)
+    error("Connection failed: " . $mysql_conn->connect_error . " check properties.php file");
+
+if ($save_properties == true) {
+    $properties = "<?php\n";
+    $properties .= "\$db_name = \"$db_name\";\n";
+    $properties .= "\$db_user = \"$db_user\";\n";
+    $properties .= "\$db_pass = \"$db_pass\";\n";
+    file_put_contents($_SERVER["DOCUMENT_ROOT"] . "/mfm-db/properties.php", $properties);
 }
+
+unset($db_name);
+unset($db_user);
+unset($db_pass);
