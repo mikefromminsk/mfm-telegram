@@ -6,7 +6,7 @@ $gas_domain = get_required(gas_domain);
 $gas_address = get_required(gas_address);
 $gas_password = get_required(gas_password);
 
-if (!DEBUG) error("cannot use not in debug session");
+onlyInDebug();
 
 tokenAccountReg($gas_domain, $gas_address, $gas_password);
 
