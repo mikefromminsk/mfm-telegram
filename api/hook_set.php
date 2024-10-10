@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER["DOCUMENT_ROOT"] . "/telegram/api/utils.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-telegram/api/utils.php";
 
 $telegram_bot_api = get_required(telegram_bot_api);
 
@@ -14,7 +14,7 @@ $response[instraction] = [
 
 $response[url] = "https://api.telegram.org/bot$telegram_bot_api/setWebhook";
 $response[form_data] = [
-    url => "https://mytoken.space/telegram/api/hook.php",
+    url => "https://mytoken.space/mfm-telegram/api/hook.php",
     certificate => "[c:\\webserver.cert]"
 ];
 $response[success] = "you need to send it via postman";
