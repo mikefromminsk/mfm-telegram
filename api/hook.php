@@ -1,21 +1,26 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-telegram/api/utils.php";
 
+getServerParams(telegram, [telegram_bot_api_token]);
+
 $bot = get_required(bot);
 $message = get_required(message);
 
-$chat_id = $message[chat][id];
-$username = $message[chat][username];
+function telegramSend($chat_id, $text)
+{
+    $token = get_required(telegram_bot_api_token);
+    return http_post("https://api.telegram.org/bot$token/sendMessage", [
+        chat_id => $chat_id,
+        text => $text,
+    ]);
+}
 
+trackEvent(telegram, $message[chat][username], $bot, $message[chat][id], 'received', $message[text]);
 
-if (!dataExist([users, $username, $bot]))
-    dataSet([users, $username, $bot], $chat_id);
-
-
-spendGasOf(get_required(gas_address), get_required(gas_password));
-commit();
-
-telegramSendToUsername($bot, $username, "Hello, $username! Tap Play button.");
+if ($message[text] == '/start') {
+    $event = getEvent(telegram, $message[chat][username], $bot);
+    telegramSend($event[to_id], "Hello, $event[from_id]! Tap Play button.");
+}
 
 
 /*"message":{
