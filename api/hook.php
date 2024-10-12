@@ -1,19 +1,9 @@
 <?php
-include_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-telegram/api/utils.php";
 
-getServerParams(telegram, [telegram_bot_api_token]);
+include_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-telegram/api/utils.php";
 
 $bot = get_required(bot);
 $message = get_required(message);
-
-function telegramSend($chat_id, $text)
-{
-    $token = get_required(telegram_bot_api_token);
-    return http_post("https://api.telegram.org/bot$token/sendMessage", [
-        chat_id => $chat_id,
-        text => $text,
-    ]);
-}
 
 trackEvent(telegram, $message[chat][username], $bot, $message[chat][id], 'received', $message[text]);
 
