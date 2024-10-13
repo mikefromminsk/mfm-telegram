@@ -8,4 +8,4 @@ $message = get_required(message);
 
 $event = getEvent(telegram, $username, $bot);
 
-telegramSend($event[to_id], $message);
+telegramSend($bot, $event[to_id], $message);

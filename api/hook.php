@@ -9,7 +9,7 @@ trackEvent(telegram, $message[chat][username], $bot, $message[chat][id], 'receiv
 
 if ($message[text] == '/start') {
     $event = getEvent(telegram, $message[chat][username], $bot);
-    telegramSend($event[to_id], "Hello, $event[from_id]! Tap Play button.");
+    telegramSend(mytoken_space_bot, $event[to_id], "Hello, $event[from_id]! Tap Play button.");
 }
 
 
