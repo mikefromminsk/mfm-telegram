@@ -5,6 +5,9 @@ include_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-data/track.php";
 
 function telegramSend($bot, $chat_id, $text)
 {
+    if (empty($chat_id)) {
+        return;
+    }
     $token = get_config_required($bot . "_token");
     $response = http_post("https://api.telegram.org/bot$token/sendMessage", [
         chat_id => $chat_id,
