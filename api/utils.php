@@ -1,6 +1,6 @@
 <?php
-require_once $_SERVER[DOCUMENT_ROOT] . "/mfm-db/requests.php";
-require_once $_SERVER[DOCUMENT_ROOT] . "/mfm-analytics/utils.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-db/requests.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-analytics/utils.php";
 
 function telegramSend($bot, $chat_id, $text)
 {
