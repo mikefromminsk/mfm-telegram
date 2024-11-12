@@ -2,12 +2,12 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-db/requests.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-analytics/utils.php";
 
-function telegramSend($bot, $chat_id, $text)
+function telegramSend($chat_id, $text)
 {
     if (empty($chat_id)) {
         return;
     }
-    $token = get_config_required($bot . "_token");
+    $token = get_config_required( "telegram_bot_token");
     $response = http_post("https://api.telegram.org/bot$token/sendMessage", [
         chat_id => $chat_id,
         text => $text,
@@ -15,7 +15,7 @@ function telegramSend($bot, $chat_id, $text)
 
     if ($response[ok] == true) {
         trackAccumulate('telegram_send');
-        trackEvent('send', 'telegram_bot', $bot, 'chat', $chat_id, $text);
+        trackEvent(telegram_send, $chat_id, $text);
     } else {
         error($response);
     }
@@ -23,12 +23,12 @@ function telegramSend($bot, $chat_id, $text)
 
 function telegramSendToAddress($address, $message)
 {
-    $bot = mytoken_space_bot;
-    $wallet_link_telegram = getEvent(link, wallet, $address, telegram);
-    if ($wallet_link_telegram == null) error("No telegram connection for $address");
-    $username = $wallet_link_telegram[to_id];
-    $telegram_link_chat = getEvent(received, telegram, $username, $bot);
-    if ($telegram_link_chat == null) error("No telegram chat for $username");
-    telegramSend($bot, $telegram_link_chat[to_id], $message);
-    return $address . " " . json_encode($telegram_link_chat) . " " . $message;
+    $link_event = getEvent(telegram_link, $address);
+    if ($link_event == null) error("No telegram connection for $address");
+    $username = $link_event[value];
+    $start_event = getEvent(telegram_start, $username);
+    if ($start_event == null) error("No telegram chat for $username");
+    $chat_id = $start_event[value];
+    telegramSend($chat_id, $message);
+    return $address . " " . json_encode($start_event) . " " . $message;
 }

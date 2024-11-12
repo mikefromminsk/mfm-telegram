@@ -1,9 +1,9 @@
 <?php
 require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-telegram/api/utils.php";
 
-$address = get_required("address");
 $username = get_required("username");
+$address = get_required("address");
 
-trackEvent(link, wallet, $address, telegram, $username);
+trackEvent(telegram_link, $username, $address);
 
 telegramSendToAddress($address, "Linked to account $address");

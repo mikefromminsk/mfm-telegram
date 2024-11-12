@@ -1,14 +1,13 @@
 <?php
 require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-telegram/api/utils.php";
 
-$bot = get_required(bot);
 $message = get_required(message);
 
-trackEvent(received, telegram, $message[chat][username], $bot, $message[chat][id], $message[text]);
-
 if ($message[text] == '/start') {
-    $event = getEvent(received, telegram, $message[chat][username], $bot);
-    telegramSend(mytoken_space_bot, $event[to_id], "Hello, $event[from_id]! Tap Play button.");
+    $event = getEvent(telegram_start, $message[chat][username]);
+    if ($event == null)
+        trackEvent(telegram_start, $message[chat][username], $message[chat][id]);
+    telegramSend($message[chat][id], "Hello, ${$message[chat][username]}! Tap Play button.");
 }
 
 
