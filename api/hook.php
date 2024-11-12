@@ -4,10 +4,10 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-telegram/api/utils.php";
 $bot = get_required(bot);
 $message = get_required(message);
 
-trackEvent(telegram, $message[chat][username], $bot, $message[chat][id], 'received', $message[text]);
+trackEvent(received, telegram, $message[chat][username], $bot, $message[chat][id], $message[text]);
 
 if ($message[text] == '/start') {
-    $event = getEvent(telegram, $message[chat][username], $bot);
+    $event = getEvent(received, telegram, $message[chat][username], $bot);
     telegramSend(mytoken_space_bot, $event[to_id], "Hello, $event[from_id]! Tap Play button.");
 }
 
