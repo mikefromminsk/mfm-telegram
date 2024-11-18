@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-telegram/api/utils.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-telegram/utils.php";
 
 $message = get_required(message);
 

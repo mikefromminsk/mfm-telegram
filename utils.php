@@ -15,7 +15,7 @@ function telegramSend($chat_id, $text)
 
     if ($response[ok] == true) {
         trackAccumulate('telegram_send');
-        trackEvent(telegram_send, $chat_id, $text);
+        trackEvent(telegram_send, $chat_id, $text, null, null, null, get_int(parent));
     } else {
         error($response);
     }

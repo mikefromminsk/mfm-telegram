@@ -9,5 +9,5 @@ https://api.telegram.org/bot$telegram_bot_api/getWebhookInfo
 
 
 https://api.telegram.org/bot$telegram_bot_api/setWebhook
-https://mytoken.space/mfm-telegram/api/hook.php
+https://mytoken.space/mfm-telegram/hook.php
 certificate => "[c:\\webserver.cert]"
