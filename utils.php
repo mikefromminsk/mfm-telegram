@@ -14,8 +14,11 @@ function telegramSend($chat_id, $text)
     ]);
 
     if ($response[ok] == true) {
-        trackAccumulate('telegram_send');
-        trackEvent(telegram_send, $chat_id, $text, null, null, null, get_int(parent));
+        trackAccumulate(telegram_send);
+        trackEvent(telegram, send, [
+            chat_id => $chat_id,
+            text => $text,
+        ]);
     } else {
         error($response);
     }
@@ -23,12 +26,12 @@ function telegramSend($chat_id, $text)
 
 function telegramSendToAddress($address, $message)
 {
-    $link_event = getEvent(telegram_link, null, $address);
+    $link_event = getEvent(ui, linkTelegram, null, $address);
     if ($link_event == null) error("No telegram connection for $address");
-    $username = $link_event[name];
-    $start_event = getEvent(telegram_start, $username);
+    $username = $link_event[value];
+    $start_event = getEvent(telegram, start, null, $username);
     if ($start_event == null) error("No telegram chat for $username");
-    $chat_id = $start_event[value];
-    telegramSend($chat_id, $message);
+    $start_object = getObject($start_event[value]);
+    telegramSend($start_object[chat_id], $message);
     return $address . " " . json_encode($start_event) . " " . $message;
 }
