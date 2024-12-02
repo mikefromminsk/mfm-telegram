@@ -4,7 +4,7 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-telegram/utils.php";
 $message = get_required(message);
 
 if ($message[text] == '/start') {
-    trackEvent(telegram, start, [
+    trackEvent(tg, start, [
         username => $message[chat][username],
         chat_id => $message[chat][id],
         first_name => $message[from][first_name],

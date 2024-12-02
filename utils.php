@@ -26,10 +26,10 @@ function telegramSend($chat_id, $text)
 
 function telegramSendToAddress($address, $message)
 {
-    $link_event = getEvent(ui, linkTelegram, null, $address);
+    $link_event = getEvent(ui, tg_link, null, $address);
     if ($link_event == null) error("No telegram connection for $address");
     $username = $link_event[value];
-    $start_event = getEvent(telegram, start, null, $username);
+    $start_event = getEvent(tg, start, null, $username);
     if ($start_event == null) error("No telegram chat for $username");
     $start_object = getObject($start_event[value]);
     telegramSend($start_object[chat_id], $message);
