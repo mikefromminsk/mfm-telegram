@@ -8,3 +8,5 @@ if ($tran[amount] <= 0) error("Invalid amount");
 
 $message = "You have received $tran[amount] " . strtoupper($tran[domain]) . " from $tran[from]";
 telegramSendToAddress($tran[to], $message);
+
+commit();

@@ -11,6 +11,7 @@ if ($message[text] == '/start') {
         last_name => $message[from][last_name],
     ], $message[chat][username]);
     telegramSend($message[chat][id], "Hello! Tap Play button.");
+    commit();
 }
 
 

@@ -5,3 +5,5 @@ $address = get_required(address);
 $message = get_required(message);
 
 telegramSendToAddress($address, $message);
+
+commit();
