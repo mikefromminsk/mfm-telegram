@@ -24,14 +24,19 @@ function telegramSend($chat_id, $text)
     }
 }
 
-function telegramSendToAddress($address, $message)
+function telegramGetReceiverInfo($address)
 {
     $link_event = getEvent(ui, tg_link, null, $address);
-    if ($link_event == null) error("No telegram connection for $address");
+    if ($link_event == null) return null;
     $username = $link_event[value];
     $start_event = getEvent(tg, start, null, $username);
-    if ($start_event == null) error("No telegram chat for $username");
-    $start_object = getObject($start_event[value]);
-    telegramSend($start_object[chat_id], $message);
-    return $address . " " . json_encode($start_event) . " " . $message;
+    if ($start_event == null) return null;
+    return getObject($start_event[value]);
+}
+
+function telegramSendToAddress($address, $message)
+{
+    $start_object = telegramGetReceiverInfo($address);
+    if (is_string($start_object)) error($start_object);
+    return telegramSend($start_object[chat_id], $message);
 }
