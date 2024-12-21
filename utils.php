@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-db/requests.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-db/requests";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-analytics/utils.php";
 
 function telegramSend($chat_id, $text)
