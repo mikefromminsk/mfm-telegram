@@ -8,7 +8,7 @@ function telegramSend($chat_id, $text)
         return;
     }
     $token = get_config_required( "telegram_bot_token");
-    $response = http_post("https://api.telegram.org/bot$token/sendMessage", [
+    $response = post_data("https://api.telegram.org/bot$token/sendMessage", [
         chat_id => $chat_id,
         text => $text,
     ]);
